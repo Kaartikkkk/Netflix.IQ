@@ -1,0 +1,47 @@
+<section class="page" id="page-predictions">
+<div class="content">
+  <div class="sec-header">
+    <div class="sec-title">Predictions <span>Forecast</span></div>
+    <div class="sec-sub">Time Series · Genre · Regional · Model Accuracy</div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Content Forecast</div>
+      <div class="chart-sub">Projected new titles (2022–2024)</div>
+      <div class="chart-wrap"><canvas id="forecastChart"></canvas></div>
+      <div class="insight" id="forecast-insight">Loading forecast...</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Genre Forecast</div>
+      <div class="chart-sub">Top genres — projected growth</div>
+      <div class="chart-wrap"><canvas id="genreForecast"></canvas></div>
+      <div class="insight" id="genre-insight-pred">Loading genre data...</div>
+    </div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Regional Forecast</div>
+      <div class="chart-sub">Projected growth by region</div>
+      <div class="chart-wrap"><canvas id="regionalForecast"></canvas></div>
+      <div class="insight" id="regional-insight">Loading regional data...</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Model Accuracy</div>
+      <div class="chart-sub">MAE · RMSE · R² by ML model</div>
+      <div class="chart-wrap"><canvas id="modelAccChart"></canvas></div>
+      <div class="insight" id="model-insight">Loading model metrics...</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card chart-full">
+      <div class="chart-title">Hit Probability Gauge</div>
+      <div class="chart-sub">Predicted hit probability (sample title)</div>
+      <div class="chart-wrap"><canvas id="gaugeChart"></canvas></div>
+      <div class="insight" id="gauge-insight">Hit probability loading...</div>
+    </div>
+  </div>
+</div>
+</section>

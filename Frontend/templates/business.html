@@ -1,0 +1,42 @@
+<section class="page" id="page-business">
+<div class="content">
+  <div class="sec-header">
+    <div class="sec-title">Business <span>Insights</span></div>
+    <div class="sec-sub">ROI · Hit/Flop · Investment · Production Frequency</div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Genre ROI Estimation</div>
+      <div class="chart-sub">Simulated return on investment per content category</div>
+      <button class="dl-btn" onclick="dlChart('roiChart','genre_roi')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="roiChart"></canvas></div>
+      <div class="insight">Horror yields highest ROI at 9× — low production cost, high engagement</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Hit vs Flop Ratio by Genre</div>
+      <div class="chart-sub">% of titles rated ≥7.0 (hit) vs &lt;5.5 (flop)</div>
+      <button class="dl-btn" onclick="dlChart('hitFlopChart','hit_flop')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="hitFlopChart"></canvas></div>
+      <div class="insight">Documentaries: 84% hit rate — most reliable genre</div>
+    </div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Content Investment Distribution</div>
+      <div class="chart-sub">Estimated budget allocation by genre category</div>
+      <button class="dl-btn" onclick="dlChart('investChart','investment_dist')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="investChart"></canvas></div>
+      <div class="insight">Drama + Action consume 52% of estimated budget</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Production Frequency by Country</div>
+      <div class="chart-sub">Annual new titles added per producing nation</div>
+      <button class="dl-btn" onclick="dlChart('prodFreqChart','production_freq')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="prodFreqChart"></canvas></div>
+      <div class="insight">India's production rate grew 6× from 2016 to 2021</div>
+    </div>
+  </div>
+</div>
+</section>

@@ -1,0 +1,59 @@
+<section class="page" id="page-advanced">
+<div class="content">
+  <div class="sec-header">
+    <div class="sec-title">Advanced <span>Analytics</span></div>
+    <div class="sec-sub">Correlation · SHAP Values · Outliers · Anomaly Detection · Pair Plot</div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Full Correlation Heatmap</div>
+      <div class="chart-sub">All numeric features — Pearson correlation matrix</div>
+      <canvas id="fullCorrHeatmap" width="480" height="380"></canvas>
+      <div class="insight">num_votes ↔ popularity: 0.81 strongest correlation in dataset</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">SHAP Value Waterfall</div>
+      <div class="chart-sub">Feature contribution to prediction — single title explanation</div>
+      <div id="shapChart" style="padding:10px 0">
+        <div class="shap-row"><div class="shap-feat">num_votes</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-pos" style="width:42%"></div></div><div class="shap-val" style="color:var(--red)">+0.421</div></div>
+        <div class="shap-row"><div class="shap-feat">year_added</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-pos" style="width:28%"></div></div><div class="shap-val" style="color:var(--red)">+0.284</div></div>
+        <div class="shap-row"><div class="shap-feat">duration_mins</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-pos" style="width:19%"></div></div><div class="shap-val" style="color:var(--red)">+0.192</div></div>
+        <div class="shap-row"><div class="shap-feat">genre_encoded</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-pos" style="width:14%"></div></div><div class="shap-val" style="color:var(--red)">+0.141</div></div>
+        <div class="shap-row"><div class="shap-feat">country_code</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-neg" style="width:10%"></div></div><div class="shap-val" style="color:var(--blue)">−0.103</div></div>
+        <div class="shap-row"><div class="shap-feat">rating_class</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-neg" style="width:17%"></div></div><div class="shap-val" style="color:var(--blue)">−0.172</div></div>
+        <div class="shap-row"><div class="shap-feat">release_year</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-neg" style="width:23%"></div></div><div class="shap-val" style="color:var(--blue)">−0.228</div></div>
+        <div class="shap-row"><div class="shap-feat">type_encoded</div><div class="shap-bar-wrap"><div class="shap-center"></div><div class="shap-bar-neg" style="width:31%"></div></div><div class="shap-val" style="color:var(--blue)">−0.311</div></div>
+      </div>
+      <div class="insight">num_votes dominates positive SHAP — engagement is the key rating driver</div>
+    </div>
+  </div>
+
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Outlier Detection Plot</div>
+      <div class="chart-sub">IQR-based outliers — extreme titles by rating deviation</div>
+      <button class="dl-btn" onclick="dlChart('outlierChart','outlier_detection')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="outlierChart"></canvas></div>
+      <div class="insight">127 outlier titles identified — mostly niche documentaries rated 9+</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Anomaly Detection — Monthly Additions</div>
+      <div class="chart-sub">Statistical anomalies in content release patterns</div>
+      <button class="dl-btn" onclick="dlChart('anomalyChart','anomaly_detection')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="anomalyChart"></canvas></div>
+      <div class="insight">March 2020 anomaly: COVID-19 production halt caused −68% drop</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="chart-card chart-full">
+      <div class="chart-title">Model Comparison — All Algorithms</div>
+      <div class="chart-sub">Grouped bar: MAE, RMSE, R² across XGBoost, Random Forest, Linear Regression, SVR, Neural Net</div>
+      <button class="dl-btn" onclick="dlChart('modelComp','model_comparison')">↓ PNG</button>
+      <div class="chart-wrap"><canvas id="modelComp" style="max-height:280px"></canvas></div>
+      <div class="insight">XGBoost wins on all 3 metrics: MAE 0.31 · RMSE 0.42 · R² 0.942 — recommended for production</div>
+    </div>
+  </div>
+</div>
+</section>

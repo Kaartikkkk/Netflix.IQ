@@ -1,0 +1,109 @@
+
+<section class="page" id="page-intelligence">
+<div class="content">
+  <div class="sec-header">
+    <div class="sec-title">Intelligence <span>Dashboard</span></div>
+    <div class="sec-sub">Executive KPIs · Content Overview · Platform Health</div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-icon">🎬</span>
+      <span class="kpi-val" id="kpi-titles">—</span>
+      <div class="kpi-label">Total Titles</div>
+      <div class="kpi-delta" id="kpi-titles-delta">Complete dataset</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">🎥</span>
+      <span class="kpi-val blue" id="kpi-movies">—</span>
+      <div class="kpi-label">Total Movies</div>
+      <div class="kpi-delta" id="kpi-movies-pct">—% of catalog</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">📺</span>
+      <span class="kpi-val amber" id="kpi-tvshows">—</span>
+      <div class="kpi-label">TV Shows</div>
+      <div class="kpi-delta" id="kpi-tvshows-pct">—% of catalog</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">🌍</span>
+      <span class="kpi-val green" id="kpi-countries">—</span>
+      <div class="kpi-label">Countries</div>
+      <div class="kpi-delta">Unique origins</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">⭐</span>
+      <span class="kpi-val red" id="kpi-rating">—</span>
+      <div class="kpi-label">Avg IMDb Rating</div>
+      <div class="kpi-delta">Across all titles</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">⏱️</span>
+      <span class="kpi-val" id="kpi-runtime">—</span>
+      <div class="kpi-label">Avg Runtime</div>
+      <div class="kpi-delta">Minutes per title</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">🎭</span>
+      <span class="kpi-val amber" id="kpi-genres">—</span>
+      <div class="kpi-label">Total Genres</div>
+      <div class="kpi-delta">Unique categories</div>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-icon">📈</span>
+      <span class="kpi-val green" id="kpi-decades">—</span>
+      <div class="kpi-label">Decades Covered</div>
+      <div class="kpi-delta">Content span</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Growth & Distribution -->
+  <div class="chart-grid grid-12">
+    <div class="chart-card">
+      <div class="chart-title">Content Growth Over Time</div>
+      <div class="chart-sub">Annual titles added to Netflix catalog</div>
+      <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
+      <div class="insight" id="growth-insight">Peak year loading...</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Content Type Distribution</div>
+      <div class="chart-sub">Movies vs TV Shows breakdown</div>
+      <div class="chart-wrap"><canvas id="donutChart"></canvas></div>
+      <div class="insight" id="donut-insight">Distribution loading...</div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Genres & Ratings -->
+  <div class="chart-grid grid-12">
+    <div class="chart-card">
+      <div class="chart-title">Top 10 Genres by Count</div>
+      <div class="chart-sub">Most represented content categories</div>
+      <div class="chart-wrap"><canvas id="genreBar"></canvas></div>
+      <div class="insight" id="genre-insight">Top genre loading...</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">IMDb Rating Distribution</div>
+      <div class="chart-sub">Histogram of ratings across all titles</div>
+      <div class="chart-wrap"><canvas id="ratingHist"></canvas></div>
+      <div class="insight" id="rating-insight">Rating distribution loading...</div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Maturity & Features -->
+  <div class="chart-grid grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Content Maturity Breakdown</div>
+      <div class="chart-sub">TV-MA, TV-14, PG-13, R, PG distribution</div>
+      <div class="chart-wrap"><canvas id="maturityBar"></canvas></div>
+      <div class="insight" id="maturity-insight">Maturity analysis loading...</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Feature Importance</div>
+      <div class="chart-sub">Key factors for content success</div>
+      <div class="chart-wrap"><canvas id="featImpChart"></canvas></div>
+      <div class="insight" id="feature-insight">Feature analysis loading...</div>
+    </div>
+  </div>
+</div>
+</section>
