@@ -70,11 +70,62 @@ poetry.lock
 
 # MacOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
 
 # Data and model artifacts
 data/
 catboost_info/
-Master_dataset_Netflix/
+*.pkl
+*.pickle
+lightning_logs/
 
-# Frontend build artifacts
-Frontend/data/processed/
+# Intermediate processing files
+Master_dataset_Netflix/Step*/
+Master_dataset_Netflix/Scripts/
+Master_dataset_Netflix/Data/Raw/*.csv
+
+# Large data files (keep only refined dataset)
+*.zip
+*.rar
+*.tar.gz
+*.7z
+
+# System files
+Thumbs.db
+ehthumbs.db
+
+# Logs
+logs/
+*.log
+test_results.xml
+
+# Temporary files
+*.tmp
+*.bak
+.tmp/
+temp/
+
+# Credentials and secrets
+.env
+.env.local
+*.key
+*.pem
+config.local.json
+
+# IDE
+*.sublime-project
+*.sublime-workspace
+.idea/
+*.swp
+*.swo
+*~
+Master_dataset_Netflix/
+ml_results/

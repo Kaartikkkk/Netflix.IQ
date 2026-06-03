@@ -536,20 +536,44 @@ class NetflixAnalytics:
         return self.insights
     
     def run_ml_models(self):
-        """Run ML models and add predictions to insights"""
+        """Run optimized ML models and add predictions to insights"""
         try:
-            from ml_models import NetflixMLModels
+            import pickle
+            from pathlib import Path
             
-            ml = NetflixMLModels(df=self.df)
-            ml_results = ml.run_all_models()
+            # Try to load optimized models first
+            results_dir = Path(__file__).resolve().parent.parent / 'ml_results'
             
-            self.insights['ml'] = {
-                'metrics': ml_results['metrics'],
-                'predictions': ml_results['predictions'],
-                'feature_importance': ml_results['feature_importance'],
-                'model_comparison': ml_results['model_comparison'],
-                'sample_hit_probability': ml_results['sample_hit_probability']
-            }
+            if results_dir.exists() and (results_dir / 'results_summary.json').exists():
+                # Load optimized models
+                print("   📊 Loading optimized ML models...")
+                with open(results_dir / 'results_summary.json', 'r') as f:
+                    results = json.load(f)
+                
+                self.insights['ml'] = {
+                    'source': 'optimized_models',
+                    'metrics': {
+                        'regression': results.get('regression', {}),
+                        'classification': results.get('classification', {})
+                    },
+                    'shap_features': results.get('shap_features', {}),
+                }
+            else:
+                # Fallback to baseline models
+                print("   📊 Loading baseline ML models...")
+                from ml_models import NetflixMLModels
+                
+                ml = NetflixMLModels(df=self.df)
+                ml_results = ml.run_all_models()
+                
+                self.insights['ml'] = {
+                    'source': 'baseline_models',
+                    'metrics': ml_results['metrics'],
+                    'predictions': ml_results['predictions'],
+                    'feature_importance': ml_results['feature_importance'],
+                    'model_comparison': ml_results['model_comparison'],
+                    'sample_hit_probability': ml_results['sample_hit_probability']
+                }
         except Exception as e:
             print(f"   ⚠ ML models failed: {e}")
             self.insights['ml'] = {

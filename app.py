@@ -242,6 +242,39 @@ def api_search():
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
+@app.route('/api/predictions')
+def api_predictions():
+    """Get ML model performance and predictions using optimized models"""
+    try:
+        import json
+        from pathlib import Path
+        
+        results_dir = BASE_DIR / 'ml_results'
+        results_file = results_dir / 'results_summary.json'
+        
+        if not results_file.exists():
+            return jsonify({
+                'status': 'error', 
+                'message': 'Optimized models not yet trained'
+            }), 404
+        
+        with open(results_file, 'r') as f:
+            results = json.load(f)
+        
+        return jsonify({
+            'status': 'success',
+            'data': results,
+            'models': {
+                'regression': results.get('regression', {}),
+                'classification': results.get('classification', {}),
+            },
+            'feature_importance': results.get('shap_features', {})
+        })
+    
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
 # ─── Error Handlers ───────────────────────────────────────────────────────────
 
 @app.errorhandler(404)
