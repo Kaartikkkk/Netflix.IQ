@@ -12,7 +12,8 @@ from pathlib import Path
 
 def load_optimized_models():
     """Load the trained optimized models"""
-    results_dir = Path('ml_results')
+    import os
+    results_dir = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../ml_results')))
     
     # Load regression model
     with open(results_dir / 'best_model_regression.pkl', 'rb') as f:
@@ -288,7 +289,7 @@ def main():
         
     except FileNotFoundError:
         print("\n⚠️  Models not yet available. Please run the pipeline first:")
-        print("    python3 src/ml_models_advanced.py")
+        print("    python3 ../src/ml_models_advanced.py")
     except Exception as e:
         print(f"\n❌ Error: {str(e)}")
 

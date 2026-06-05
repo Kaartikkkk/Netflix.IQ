@@ -1,0 +1,147 @@
+{
+  "timestamp": "2026-06-04T01:41:05.045432",
+  "regression": {
+    "name": "reg_XGBoost",
+    "metrics": {
+      "R2": 0.966444271053548,
+      "MAE": 0.1205813705261343,
+      "RMSE": 0.18761105673164055,
+      "CV_Mean": 0.9595113074986564,
+      "CV_Std": 0.006059621251250694
+    }
+  },
+  "classification": {
+    "name": "clf_LightGBM",
+    "metrics": {
+      "Accuracy": 0.981549815498155,
+      "Precision": 0.9571428571428572,
+      "Recall": 0.9710144927536232,
+      "F1": 0.9640287769784173,
+      "Threshold": 0.7499999999999999,
+      "CV_F1_Mean": 0.9773729851694618,
+      "CV_F1_Std": 0.007310193468629425
+    }
+  },
+  "all_results": {
+    "reg_RandomForest": {
+      "R2": 0.9352226573755664,
+      "MAE": 0.16024628711629935,
+      "RMSE": 0.2606673607675455,
+      "CV_Mean": 0.9274518277648547,
+      "CV_Std": 0.008510658432088286
+    },
+    "reg_XGBoost": {
+      "R2": 0.966444271053548,
+      "MAE": 0.1205813705261343,
+      "RMSE": 0.18761105673164055,
+      "CV_Mean": 0.9595113074986564,
+      "CV_Std": 0.006059621251250694
+    },
+    "reg_CatBoost": {
+      "R2": 0.9611592670566146,
+      "MAE": 0.13266948236843892,
+      "RMSE": 0.201845373394375,
+      "CV_Mean": 0.9636906318054643,
+      "CV_Std": 0.00991074050398464
+    },
+    "reg_LightGBM": {
+      "R2": 0.9655003294404625,
+      "MAE": 0.11903597222368807,
+      "RMSE": 0.1902315580094461,
+      "CV_Mean": 0.9578812394393994,
+      "CV_Std": 0.0032928343026257293
+    },
+    "reg_Voting": {
+      "R2": 0.9614413504676735,
+      "MAE": 0.12514177982362445,
+      "RMSE": 0.20111108001438102
+    },
+    "clf_RandomForest": {
+      "Accuracy": 0.959409594095941,
+      "Precision": 0.9264705882352942,
+      "Recall": 0.9130434782608695,
+      "F1": 0.9197080291970803,
+      "Threshold": 0.5999999999999999,
+      "CV_F1_Mean": 0.9407552763066598,
+      "CV_F1_Std": 0.016610975207992703
+    },
+    "clf_XGBoost": {
+      "Accuracy": 0.974169741697417,
+      "Precision": 0.9305555555555556,
+      "Recall": 0.9710144927536232,
+      "F1": 0.950354609929078,
+      "Threshold": 0.7,
+      "CV_F1_Mean": 0.9661222783339198,
+      "CV_F1_Std": 0.010984876323624238
+    },
+    "clf_CatBoost": {
+      "Accuracy": 0.9630996309963099,
+      "Precision": 0.8933333333333333,
+      "Recall": 0.9710144927536232,
+      "F1": 0.9305555555555556,
+      "Threshold": 0.5499999999999999,
+      "CV_F1_Mean": 0.958107715974846,
+      "CV_F1_Std": 0.011501261949263212
+    },
+    "clf_LightGBM": {
+      "Accuracy": 0.981549815498155,
+      "Precision": 0.9571428571428572,
+      "Recall": 0.9710144927536232,
+      "F1": 0.9640287769784173,
+      "Threshold": 0.7499999999999999,
+      "CV_F1_Mean": 0.9773729851694618,
+      "CV_F1_Std": 0.007310193468629425
+    }
+  },
+  "feature_names": [
+    "is_movie",
+    "release_year",
+    "decade",
+    "content_age",
+    "description_word_count",
+    "title_length",
+    "credits_count",
+    "runtime_minutes",
+    "tmdb_score",
+    "user_rating",
+    "vote_average",
+    "combined_score",
+    "popularity",
+    "vote_count",
+    "imdb_votes",
+    "year",
+    "genre_popularity",
+    "country_popularity",
+    "runtime_x_score",
+    "votes_x_score",
+    "log_popularity",
+    "popularity_squared",
+    "genre_mean_score",
+    "genre_std_score",
+    "genre_max_score",
+    "country_mean_score",
+    "country_title_count",
+    "primary_genre_encoded",
+    "age_rating_encoded",
+    "main_country_encoded"
+  ],
+  "shap_features": {
+    "reg_XGBoost": {
+      "combined_score": 0.7687357068061829,
+      "runtime_x_score": 0.2614603340625763,
+      "runtime_minutes": 0.1431512087583542,
+      "user_rating": 0.10433916002511978,
+      "tmdb_score": 0.06058919429779053,
+      "imdb_votes": 0.03833414241671562,
+      "release_year": 0.025826025754213333,
+      "popularity": 0.023497384041547775,
+      "vote_count": 0.021965952590107918,
+      "vote_average": 0.01136064063757658,
+      "credits_count": 0.00887675117701292,
+      "country_popularity": 0.007971440441906452,
+      "votes_x_score": 0.0066885692067444324,
+      "description_word_count": 0.005731323733925819,
+      "main_country_encoded": 0.005149827804416418
+    }
+  }
+}

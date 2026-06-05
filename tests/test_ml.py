@@ -1,12 +1,14 @@
 import sys
-sys.path.insert(0, './src')
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 from ml_models import NetflixMLModels
 import pandas as pd
 
 # Try to train ML models
 try:
     print("Loading dataset...")
-    df = pd.read_csv('Dataset.csv')
+    dataset_path = os.path.join(os.path.dirname(__file__), '../Dataset.csv')
+    df = pd.read_csv(dataset_path)
     print(f"Dataset shape: {df.shape}")
     print(f"Columns: {list(df.columns)}")
     
