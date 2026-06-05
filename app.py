@@ -21,8 +21,8 @@ JS_DIR = FRONTEND_DIR / 'js'
 DATA_DIR = FRONTEND_DIR / 'data'
 PROCESSED_DIR = DATA_DIR / 'processed'
 
-print(f"📁 Base folder     : {BASE_DIR}")
-print(f"📁 Frontend folder : {FRONTEND_DIR}")
+print(f"[DIR] Base folder     : {BASE_DIR}")
+print(f"[DIR] Frontend folder : {FRONTEND_DIR}")
 
 # ─── Load Pre-computed Data (lightweight, no pandas/numpy) ────────────────────
 analytics_data = None
@@ -39,27 +39,27 @@ def load_all_data():
     if analytics_path.exists():
         with open(analytics_path, 'r', encoding='utf-8') as f:
             analytics_data = json.load(f)
-        print(f"✅ Analytics loaded ({analytics_path.stat().st_size // 1024} KB)")
+        print(f"[OK] Analytics loaded ({analytics_path.stat().st_size // 1024} KB)")
     else:
-        print("⚠️  analytics_insights.json not found")
+        print("[WARN] analytics_insights.json not found")
 
     # 2. Dataset index (for search & browse API)
     index_path = PROCESSED_DIR / 'dataset_index.json'
     if index_path.exists():
         with open(index_path, 'r', encoding='utf-8') as f:
             dataset_index = json.load(f)
-        print(f"✅ Dataset index loaded ({len(dataset_index)} records)")
+        print(f"[OK] Dataset index loaded ({len(dataset_index)} records)")
     else:
-        print("⚠️  dataset_index.json not found")
+        print("[WARN] dataset_index.json not found")
 
     # 3. ML results summary
     results_path = BASE_DIR / 'ml_results' / 'results_summary.json'
     if results_path.exists():
         with open(results_path, 'r', encoding='utf-8') as f:
             ml_results = json.load(f)
-        print("✅ ML results loaded")
+        print("[OK] ML results loaded")
     else:
-        print("⚠️  results_summary.json not found")
+        print("[WARN] results_summary.json not found")
 
 
 # ─── Flask app ────────────────────────────────────────────────────────────────
@@ -279,11 +279,11 @@ load_all_data()
 
 if __name__ == '__main__':
     print("=" * 60)
-    print("🚀 NetflixIQ Analytics Platform")
+    print("NetflixIQ Analytics Platform")
     print("=" * 60)
-    print("📍 Dashboard: http://localhost:8080/")
-    print("📍 API Health: http://localhost:8080/api/health")
-    print("📍 Analytics: http://localhost:8080/api/analytics")
+    print("Dashboard: http://localhost:8080/")
+    print("API Health: http://localhost:8080/api/health")
+    print("Analytics: http://localhost:8080/api/analytics")
     print("=" * 60)
 
     app.run(host='0.0.0.0', port=8080, debug=False)
