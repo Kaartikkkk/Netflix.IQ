@@ -39,6 +39,17 @@ def load_analytics():
     global analytics_data
     
     try:
+        output_path = FRONTEND_DIR / 'data' / 'processed' / 'analytics_insights.json'
+        
+        # Fast path: load pre-processed data if it exists to avoid 30s+ timeouts on Render
+        if output_path.exists():
+            print("📊 Loading pre-processed analytics from JSON...")
+            with open(output_path, 'r', encoding='utf-8') as f:
+                analytics_data = json.load(f)
+            print("✅ Analytics loaded instantly from JSON!")
+            return analytics_data
+            
+        # Fallback: Generate it (slow)
         # pyrefly: ignore [missing-import]
         from analytics_engine import NetflixAnalytics
         
@@ -46,15 +57,15 @@ def load_analytics():
             print(f"⚠️  Dataset.csv not found at {DATASET_PATH}")
             return None
         
-        print("📊 Loading analytics from Dataset.csv...")
+        print("📊 Loading analytics from Dataset.csv (this may take a while)...")
         analytics = NetflixAnalytics(csv_path=str(DATASET_PATH))
         analytics_data = analytics.generate_all_insights()
         
         # Save to JSON for frontend
-        output_path = FRONTEND_DIR / 'data' / 'processed' / 'analytics_insights.json'
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         analytics.save_insights(output_path)
         
-        print("✅ Analytics loaded successfully!")
+        print("✅ Analytics generated and saved successfully!")
         return analytics_data
         
     except Exception as e:
