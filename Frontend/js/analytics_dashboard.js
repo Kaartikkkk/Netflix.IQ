@@ -992,6 +992,7 @@ function initClusteringCharts(analytics) {
 }
 
 // Draw dendrogram (proper tree structure with branches)
+// Draw dendrogram (proper tree structure with branches)
 function drawDendrogram(canvasId, dendroData, numClusters) {
   const canvas = document.getElementById(canvasId);
   if (!canvas || !dendroData || !dendroData.linkage || dendroData.linkage.length === 0) {
@@ -1041,22 +1042,48 @@ function drawDendrogram(canvasId, dendroData, numClusters) {
     
     // Build dendrogram structure
     const numLeaves = linkageData.length + 1;
-    const leafWidth = plotWidth / numLeaves;
     
-    // Initialize leaf x-positions
+    // Traverse tree to find optimal non-crossing leaf order
+    const children = new Map();
+    for (let i = 0; i < linkageData.length; i++) {
+      children.set(numLeaves + i, [linkageData[i][0], linkageData[i][1]]);
+    }
+    
+    const leafOrder = [];
+    function traverse(nodeId) {
+      if (nodeId < numLeaves) {
+        leafOrder.push(nodeId);
+      } else {
+        const [left, right] = children.get(nodeId);
+        traverse(left);
+        traverse(right);
+      }
+    }
+    // Root is the last merge
+    traverse(numLeaves + linkageData.length - 1);
+    
+    // Assign leaf x-positions based on traversal order
     const nodeCoords = new Map();
-    for (let i = 0; i < numLeaves; i++) {
-      const x = margin.left + (i + 0.5) * leafWidth;
+    const leafWidth = plotWidth / numLeaves;
+    leafOrder.forEach((leafId, idx) => {
+      const x = margin.left + (idx + 0.5) * leafWidth;
       const y = height - margin.bottom;
-      nodeCoords.set(i, { x, y });
+      nodeCoords.set(leafId, { x, y });
+    });
+    
+    // Determine the cut distance
+    let cutDist = 0;
+    if (linkageData.length >= numClusters - 1) {
+      const cutIdx = Math.max(0, linkageData.length - numClusters + 1);
+      if (linkageData[cutIdx]) cutDist = linkageData[cutIdx][2];
     }
     
     // Draw branches for each merge
     ctx.lineWidth = 1.5;
     
-    const maxMerges = Math.min(40, linkageData.length);
-    for (let i = 0; i < maxMerges; i++) {
-      const [idx1, idx2, distance, count] = linkageData[i];
+    // We draw all merges to show the full tree
+    for (let i = 0; i < linkageData.length; i++) {
+      const [idx1, idx2, distance] = linkageData[i];
       const nodeId = numLeaves + i;
       
       const node1 = nodeCoords.get(idx1);
@@ -1067,58 +1094,42 @@ function drawDendrogram(canvasId, dendroData, numClusters) {
       const mergeY = height - margin.bottom - (distance / maxDist) * plotHeight;
       const mergeX = (node1.x + node2.x) / 2;
       
-      // Color based on merge level
-      ctx.strokeStyle = PALETTE[i % PALETTE.length];
+      // Color based on whether it's above or below the cut
+      if (distance > cutDist) {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; // Gray for top branches
+      } else {
+        ctx.strokeStyle = PALETTE[i % PALETTE.length]; // Colorful for clusters
+      }
       
-      // Draw left branch (vertical up)
+      // Draw U-shaped branch
       ctx.beginPath();
       ctx.moveTo(node1.x, node1.y);
       ctx.lineTo(node1.x, mergeY);
-      ctx.stroke();
-      
-      // Draw right branch (vertical up)
-      ctx.beginPath();
-      ctx.moveTo(node2.x, node2.y);
       ctx.lineTo(node2.x, mergeY);
+      ctx.lineTo(node2.x, node2.y);
       ctx.stroke();
-      
-      // Draw horizontal connector
-      ctx.beginPath();
-      ctx.moveTo(node1.x, mergeY);
-      ctx.lineTo(node2.x, mergeY);
-      ctx.stroke();
-      
-      // Draw merge point marker
-      ctx.fillStyle = PALETTE[i % PALETTE.length];
-      ctx.beginPath();
-      ctx.arc(mergeX, mergeY, 2, 0, Math.PI * 2);
-      ctx.fill();
       
       // Store new node position for next level of tree
       nodeCoords.set(nodeId, { x: mergeX, y: mergeY });
     }
     
     // Draw cut-off line for K clusters
-    ctx.strokeStyle = RED;
-    ctx.lineWidth = 2;
-    ctx.setLineDash([4, 4]);
-    if (linkageData.length >= numClusters - 1) {
-      const cutIdx = Math.max(0, linkageData.length - numClusters + 1);
-      const cutMerge = linkageData[cutIdx];
-      if (cutMerge) {
-        const cutDist = cutMerge[2];
-        const cutY = height - margin.bottom - (cutDist / maxDist) * plotHeight;
-        ctx.beginPath();
-        ctx.moveTo(margin.left, cutY);
-        ctx.lineTo(width - margin.right, cutY);
-        ctx.stroke();
-      }
+    if (cutDist > 0) {
+      ctx.strokeStyle = RED;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      const cutY = height - margin.bottom - (cutDist / maxDist) * plotHeight;
+      ctx.beginPath();
+      ctx.moveTo(margin.left, cutY);
+      ctx.lineTo(width - margin.right, cutY);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
-    ctx.setLineDash([]);
     
     // Legend
     ctx.fillStyle = RED;
     ctx.font = '11px Syne';
+    ctx.textAlign = 'left';
     ctx.fillText(`K=${numClusters} clusters (optimal cut)`, margin.left, height - 8);
     
   } catch (e) {
