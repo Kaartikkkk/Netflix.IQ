@@ -755,6 +755,18 @@ function initClusteringCharts(analytics) {
         }
       }
     });
+    
+    // Update subtitle and insight
+    const pcaSub = document.getElementById('pca-sub');
+    if (pcaSub) {
+      pcaSub.textContent = `${clustering.optimal_k} clusters — content archetypes`;
+    }
+    const pcaInsight = document.getElementById('pca-insight');
+    if (pcaInsight) {
+      // Just list cluster numbers since dynamic semantic names aren't available
+      const clusterNames = Array.from({length: clustering.optimal_k}, (_, i) => `Cluster ${i}`);
+      pcaInsight.textContent = `Clusters: ${clusterNames.join(', ')}`;
+    }
   }
   
   // 2. ELBOW GRAPH - Finding optimal K
