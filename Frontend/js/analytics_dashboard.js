@@ -1262,7 +1262,7 @@ function initGenresCharts(analytics) {
   // 3. GENRE GROWTH BY YEAR
   if (genres.yearly_growth) {
     const yearlyGrowth = genres.yearly_growth;
-    const years = Object.keys(yearlyGrowth).sort().map(Number);
+    const years = Object.keys(yearlyGrowth).sort().map(Number).filter(y => y >= 2010 && y <= 2020);
     const genreLabels = Object.keys(genres.top_genres).slice(0, 5);
     
     const datasets = genreLabels.map((genre, i) => ({
