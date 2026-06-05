@@ -1,11 +1,3 @@
-"""
-NetflixIQ Analytics Platform — app.py
-======================================
-Flask server serving the NetflixIQ dashboard with all templates,
-static files, and API endpoints.
-
-Uses unified Dataset.csv as the data source.
-"""
 
 import json
 import os
@@ -47,6 +39,7 @@ def load_analytics():
     global analytics_data
     
     try:
+        # pyrefly: ignore [missing-import]
         from analytics_engine import NetflixAnalytics
         
         if not DATASET_PATH.exists():
@@ -240,6 +233,47 @@ def api_search():
         
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/dataset')
+def api_dataset():
+    """Return the raw dataset (paginated)"""
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('per_page', 50))
+    
+    try:
+        import pandas as pd
+        import math
+        df = pd.read_csv(DATASET_PATH)
+        # Handle NaN values for JSON serialization
+        df = df.fillna('')
+        
+        # Pagination
+        total_records = len(df)
+        total_pages = math.ceil(total_records / per_page)
+        
+        start_idx = (page - 1) * per_page
+        end_idx = start_idx + per_page
+        
+        results = df.iloc[start_idx:end_idx].to_dict('records')
+        
+        return jsonify({
+            'status': 'success',
+            'page': page,
+            'per_page': per_page,
+            'total_pages': total_pages,
+            'total_records': total_records,
+            'data': results
+        })
+        
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/dataset/download')
+def api_dataset_download():
+    """Download the raw Dataset.csv file"""
+    return send_from_directory(str(BASE_DIR), 'Dataset.csv', as_attachment=True)
 
 
 @app.route('/api/predictions')
