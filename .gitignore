@@ -84,6 +84,9 @@ ENV/
 data/
 catboost_info/
 lightning_logs/
+Dataset.csv
+*.pkl
+*.pickle
 
 # Intermediate processing files
 Master_dataset_Netflix/Step*/
