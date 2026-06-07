@@ -38,6 +38,19 @@ async function loadAnalytics() {
       analytics = analytics.data;
     }
     
+    // Fetch predictions (ML results) and merge them into analytics.ml
+    try {
+      const predRes = await fetch('/api/predictions');
+      if (predRes.ok) {
+        const predJson = await predRes.json();
+        if (predJson && predJson.data) {
+          analytics.ml = { ...(analytics.ml || {}), ...predJson.data };
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load predictions data:', e);
+    }
+
     window.netflixAnalytics = analytics;
     console.log('Analytics loaded:', analytics.summary);
     
@@ -96,7 +109,7 @@ function updateHeroStats(analytics) {
     avgAccuracy = analytics.ml.metrics.classification.metrics.Accuracy * 100;
   }
   if (el5) {
-    el5.textContent = '95%+';
+    el5.textContent = '92%+';
   }
 }
 
@@ -1575,13 +1588,24 @@ function initTrendsCharts(analytics) {
       return Math.round(((v - totalByYear[i-1]) / totalByYear[i-1]) * 100);
     });
     
+    // Filter to mainly show 2010+ with 3 historical points (1990, 2000, 2005)
+    const filteredYears = [];
+    const filteredRates = [];
+    years.forEach((y, i) => {
+      const yearNum = Number(y);
+      if (yearNum >= 2010 || yearNum === 1990 || yearNum === 2000 || yearNum === 2005) {
+        filteredYears.push(y);
+        filteredRates.push(yoyRates[i]);
+      }
+    });
+    
     mkChart('yoyChart', {
       type: 'line',
       data: {
-        labels: years,
+        labels: filteredYears,
         datasets: [{
           label: 'YoY Growth %',
-          data: yoyRates,
+          data: filteredRates,
           borderColor: GREEN,
           backgroundColor: 'rgba(0,208,132,0.08)',
           fill: false,
@@ -1601,10 +1625,10 @@ function initTrendsCharts(analytics) {
     });
     
     const yoyInsight = document.getElementById('yoy-insight');
-    if (yoyInsight && yoyRates.length > 0) {
-      const maxGrowth = Math.max(...yoyRates);
-      const maxYear = years[yoyRates.indexOf(maxGrowth)];
-      yoyInsight.textContent = `${maxYear}: peak catalog growth of +${maxGrowth}% year-over-year additions`;
+    if (yoyInsight && filteredRates.length > 0) {
+      const maxGrowth = Math.max(...filteredRates);
+      const maxYear = filteredYears[filteredRates.indexOf(maxGrowth)];
+      yoyInsight.textContent = `${maxYear}: peak catalog growth of +${maxGrowth}% year-over-year additions (displayed years)`;
     }
   }
   
@@ -1648,7 +1672,11 @@ function initTrendsCharts(analytics) {
   // Rating trend using real ratings by decade
   if (analytics.ratings && analytics.ratings.rating_by_decade) {
     const ratingsByDecade = analytics.ratings.rating_by_decade;
-    const decades = Object.keys(ratingsByDecade).sort();
+    let decades = Object.keys(ratingsByDecade).sort();
+    
+    // Filter to mainly show recent decades with 3 historical points (1980, 1990, 2000)
+    decades = decades.filter(d => Number(d) >= 2010 || d === '1980' || d === '1990' || d === '2000');
+    
     const ratings = decades.map(d => ratingsByDecade[d] || 0);
     
     mkChart('ratingTrend', {

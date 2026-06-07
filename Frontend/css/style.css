@@ -323,3 +323,12 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overfl
 .filter-input:focus{border-color:var(--red)}
 select.filter-input option{background:var(--s2)}
 .range-val{font-size:11px;color:var(--muted2);margin-top:2px}
+
+/* ═══ SHAP WATERFALL CHART ═══ */
+.shap-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.shap-feat{width:140px;text-align:right;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'DM Mono',monospace}
+.shap-bar-wrap{flex:1;position:relative;height:12px;background:rgba(255,255,255,.05);border-radius:2px;display:flex;align-items:center}
+.shap-center{position:absolute;top:-4px;bottom:-4px;left:50%;width:1px;background:rgba(255,255,255,.15);z-index:1}
+.shap-bar-pos{position:absolute;top:0;bottom:0;left:50%;border-radius:0 2px 2px 0;z-index:2}
+.shap-bar-neg{position:absolute;top:0;bottom:0;right:50%;border-radius:2px 0 0 2px;z-index:2}
+.shap-val{width:60px;text-align:left;font-family:'DM Mono',monospace}
