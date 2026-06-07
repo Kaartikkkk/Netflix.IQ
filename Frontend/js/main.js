@@ -12,7 +12,6 @@ window.showPage = function showPage(id) {
 		'trends-include',
 		'explorer-include',
 		'business-include',
-		'recommendations-include',
 		'advanced-include'
 	].forEach(containerId => {
 		const el = document.getElementById(containerId);
@@ -36,7 +35,6 @@ window.showPage = function showPage(id) {
 		trends: 'trends-include',
 		explorer: 'explorer-include',
 		business: 'business-include',
-		recommendations: 'recommendations-include',
 		advanced: 'advanced-include'
 	};
 	const showId = pageMap[id];

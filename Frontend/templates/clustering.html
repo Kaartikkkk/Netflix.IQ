@@ -14,33 +14,39 @@
     </div>
     <div class="chart-card">
       <div class="chart-title">Cluster Size Bar</div>
-      <div class="chart-sub">Titles per cluster</div>
+      <div class="chart-sub">Titles per cluster archetype</div>
       <div class="chart-wrap"><canvas id="clusterBar"></canvas></div>
-      <div class="insight">Documentary: largest cluster</div>
+      <div class="insight" id="clusterbar-insight">Documentary: largest cluster</div>
     </div>
   </div>
 
   <div class="chart-grid grid-2">
     <div class="chart-card">
-      <div class="chart-title">Silhouette Score</div>
-      <div class="chart-sub">Optimal number of clusters (K)</div>
-      <div class="chart-wrap"><canvas id="silhouetteChart"></canvas></div>
-      <div class="insight">K=5: best separation</div>
+      <div class="chart-title">Optimal K (Elbow Method)</div>
+      <div class="chart-sub">Inertia (WCSS) vs Number of Clusters (K)</div>
+      <div class="chart-wrap"><canvas id="elbowChart"></canvas></div>
+      <div class="insight" id="elbow-insight">Optimal clusters loading...</div>
     </div>
+    <div class="chart-card">
+      <div class="chart-title">Silhouette Score</div>
+      <div class="chart-sub">Average silhouette coefficient per cluster</div>
+      <div class="chart-wrap"><canvas id="silhouetteChart"></canvas></div>
+      <div class="insight" id="silhouette-insight">K=5: best separation</div>
+    </div>
+  </div>
+
+  <div class="chart-grid grid-2">
     <div class="chart-card">
       <div class="chart-title">Dendrogram</div>
       <div class="chart-sub">Hierarchical clustering tree</div>
       <div class="chart-wrap"><canvas id="dendrogramChart" width="600" height="400"></canvas></div>
       <div class="insight">Shows hierarchical merge distances</div>
     </div>
-  </div>
-
-  <div class="chart-grid grid-1">
     <div class="chart-card">
       <div class="chart-title">Cluster Correlation Heatmap</div>
       <div class="chart-sub">Feature correlation matrix</div>
       <div class="chart-wrap"><canvas id="corrHeatmap" width="460" height="460"></canvas></div>
-      <div class="insight">Drama–Thriller: 0.74 correlation</div>
+      <div class="insight" id="cluster-corr-insight">Drama–Thriller: 0.74 correlation</div>
     </div>
   </div>
 
@@ -49,7 +55,7 @@
       <div class="chart-title">Cluster Radar</div>
       <div class="chart-sub">Feature profile per cluster</div>
       <div class="chart-wrap"><canvas id="clusterRadar"></canvas></div>
-      <div class="insight">Premium: highest rating & popularity</div>
+      <div class="insight" id="cluster-insight">Premium: highest rating & popularity</div>
     </div>
   </div>
 </div>

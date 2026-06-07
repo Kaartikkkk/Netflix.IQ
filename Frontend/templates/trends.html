@@ -5,42 +5,30 @@
     <div class="sec-sub">Monthly · YoY · Seasonality · Runtime · Rating</div>
   </div>
 
-  <div class="chart-grid grid-2">
-    <div class="chart-card">
-      <div class="chart-title">Monthly Additions</div>
-      <div class="chart-sub">Titles added per month</div>
-      <div class="chart-wrap"><canvas id="monthlyLine"></canvas></div>
-      <div class="insight">August: peak month for new titles</div>
-    </div>
-    <div class="chart-card">
+  <div class="chart-grid">
+    <div class="chart-card chart-full">
       <div class="chart-title">YoY Growth</div>
-      <div class="chart-sub">Year-over-year % change</div>
-      <div class="chart-wrap"><canvas id="yoyChart"></canvas></div>
-      <div class="insight">2015: 126% YoY growth</div>
+      <div class="chart-sub">Year-over-year % change in catalog additions</div>
+      <div class="chart-wrap"><canvas id="yoyChart" style="max-height:280px"></canvas></div>
+      <div class="insight" id="yoy-insight">YoY growth loading...</div>
     </div>
   </div>
 
-  <div class="chart-grid grid-2">
-    <div class="chart-card">
-      <div class="chart-title">Seasonal Heatmap</div>
-      <div class="chart-sub">Monthly additions by year</div>
-      <div class="chart-wrap"><canvas id="seasonalHeatmap" width="900" height="220"></canvas></div>
-      <div class="insight">2021: highest seasonal spike</div>
-    </div>
-    <div class="chart-card">
+  <div class="chart-grid">
+    <div class="chart-card chart-full">
       <div class="chart-title">Runtime Trend</div>
-      <div class="chart-sub">Average runtime by year</div>
-      <div class="chart-wrap"><canvas id="runtimeChart"></canvas></div>
-      <div class="insight">2021: 99 min avg runtime</div>
+      <div class="chart-sub">Average runtime by decade</div>
+      <div class="chart-wrap"><canvas id="runtimeChart" style="max-height:280px"></canvas></div>
+      <div class="insight" id="runtime-insight">Runtime trend loading...</div>
     </div>
   </div>
 
   <div class="chart-grid">
     <div class="chart-card chart-full">
       <div class="chart-title">Rating Trend</div>
-      <div class="chart-sub">Average IMDb rating by year</div>
-      <div class="chart-wrap"><canvas id="ratingTrend"></canvas></div>
-      <div class="insight">2018: highest avg rating</div>
+      <div class="chart-sub">Average IMDb rating by decade</div>
+      <div class="chart-wrap"><canvas id="ratingTrend" style="max-height:280px"></canvas></div>
+      <div class="insight" id="rating-trend-insight">Rating trend loading...</div>
     </div>
   </div>
 </div>

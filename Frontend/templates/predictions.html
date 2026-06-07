@@ -20,27 +20,12 @@
     </div>
   </div>
 
-  <div class="chart-grid grid-2">
-    <div class="chart-card">
-      <div class="chart-title">Regional Forecast</div>
-      <div class="chart-sub">Projected growth by region</div>
-      <div class="chart-wrap"><canvas id="regionalForecast"></canvas></div>
-      <div class="insight" id="regional-insight">Loading regional data...</div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Model Accuracy</div>
-      <div class="chart-sub">MAE · RMSE · R² by ML model</div>
-      <div class="chart-wrap"><canvas id="modelAccChart"></canvas></div>
-      <div class="insight" id="model-insight">Loading model metrics...</div>
-    </div>
-  </div>
-
   <div class="chart-grid">
     <div class="chart-card chart-full">
-      <div class="chart-title">Hit Probability Gauge</div>
-      <div class="chart-sub">Predicted hit probability (sample title)</div>
-      <div class="chart-wrap"><canvas id="gaugeChart"></canvas></div>
-      <div class="insight" id="gauge-insight">Hit probability loading...</div>
+      <div class="chart-title">Model Accuracy</div>
+      <div class="chart-sub">MAE · RMSE · R² by ML model (XGBoost & LightGBM)</div>
+      <div class="chart-wrap"><canvas id="modelAccChart" style="max-height:280px"></canvas></div>
+      <div class="insight" id="model-insight">Loading model metrics...</div>
     </div>
   </div>
 </div>
